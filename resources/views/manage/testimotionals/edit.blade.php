@@ -5,11 +5,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title">Xəbəri Redaktə Et</h4>
+                        <h4 class="card-title">Müştəri fikirləri</h4>
                         <div class="lang d-flex">
-                            <a href="az" class="btn btn-success {{ app()->isLocale('az') ? 'active' : '' }}">AZ</a>
-                            <a href="en" class="btn btn-success {{ app()->isLocale('en') ? 'active' : '' }}">EN</a>
-                            <a href="ru" class="btn btn-success {{ app()->isLocale('ru') ? 'active' : '' }}">RU</a>
+                            <a href="az" class="btn btn-success {{ app()->isLocale('az')?'active':'' }}">AZ</a>
+                            <a href="en" class="btn btn-success {{ app()->isLocale('en')?'active':'' }}">EN</a>
+                            <a href="ru" class="btn btn-success {{ app()->isLocale('ru')?'active':'' }}">RU</a>
                         </div>
                     </div>
 
@@ -19,65 +19,41 @@
 
                         <div class="translatable-content">
                             <div class="form-group">
-                                <label for="exampleInputName1">Title</label>
-                                <input type="hidden" name="title_lang"
-                                    value='{"az":"{{ $blog->langs->firstWhere('lang', 'az')->title }}","ru":"{{ $blog->langs->firstWhere('lang', 'ru')->title }}","en":"{{ $blog->langs->firstWhere('lang', 'en')->title }}"}'>
-                                <input type="text" class="form-control" id="exampleInputName1" name="title"
-                                    placeholder="Title"
-                                    value="{{ $blog->langs->firstWhere('lang', app()->getLocale())->title }}" />
-                                @error('title')
+                                <label for="exampleInputName1">Name</label>
+                                <input type="hidden" name="name_lang"
+                                    value='{"az":"{{ \App\Helpers\Translate::getTranslate($imotional,'az')->name }}","ru":"{{ \App\Helpers\Translate::getTranslate($imotional,'ru')->name }}","en":"{{ \App\Helpers\Translate::getTranslate($imotional,'en')->name }}"}'>
+                                <input type="text" class="form-control" id="exampleInputName1" name="name"
+                                    placeholder="Name"
+                                    value="{{ \App\Helpers\Translate::getTranslate($imotional,app()->getLocale())->name }}" />
+                                @error('name')
                                     <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputName1">Content</label>
-                                <input type="hidden" name="content_lang"
-                                    value='{"az":"{{ $blog->langs->firstWhere('lang', 'az')->content }}","ru":"{{ $blog->langs->firstWhere('lang', 'ru')->content }}","en":"{{ $blog->langs->firstWhere('lang', 'en')->content }}"}'>
-                                <input type="text" class="form-control" id="exampleInputName1" name="content"
-                                    placeholder="Content"
-                                    value="{{ $blog->langs->firstWhere('lang', app()->getLocale())->content }}" />
-                                @error('content')
+                                <label for="exampleInputName1">Profession</label>
+                                <input type="hidden" name="profession_lang"
+                                    value='{"az":"{{ \App\Helpers\Translate::getTranslate($imotional,'az')->profession }}","ru":"{{ \App\Helpers\Translate::getTranslate($imotional,'ru')->profession }}","en":"{{ \App\Helpers\Translate::getTranslate($imotional,'en')->profession }}"}'>
+                                <input type="text" class="form-control" id="exampleInputName1" name="profession"
+                                    placeholder="Profession"
+                                    value="{{ \App\Helpers\Translate::getTranslate($imotional,app()->getLocale())->profession }}" />
+                                @error('profession')
                                     <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputName1">Description AZ</label>
-                                <textarea name="description_az" id="editor"
-                                    rows="20">{{ $blog->langs->firstWhere('lang', 'az')->description }}</textarea>
-                                @error('description_az')
-                                    <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputName1">Description EN</label>
-                                <textarea name="description_en" id="editor1"
-                                    rows="20">{{ $blog->langs->firstWhere('lang', 'en')->description }}</textarea>
-                                @error('description_en')
-                                    <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputName1">Description RU</label>
-                                <textarea name="description_ru" id="editor2"
-                                    rows="20">{{ $blog->langs->firstWhere('lang', 'ru')->description }}</textarea>
-                                @error('description_ru')
+                                <label for="exampleInputName1">Text</label>
+                                <input type="hidden" name="text_lang"
+                                    value='{"az":"{{ $imotional->langs->firstWhere('lang', 'az')->text }}","ru":"{{ $imotional->langs->firstWhere('lang', 'ru')->text }}","en":"{{ $imotional->langs->firstWhere('lang', 'en')->text }}"}'>
+                                <textarea name="text" class="form-control"
+                                    rows="5">{{ $imotional->langs->firstWhere('lang', app()->getLocale())->text }}</textarea>
+                                @error('text')
                                     <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="">Time</label>
-                            <input type="date" class="form-control" name="datetime"
-                                value="{{ \Carbon\Carbon::parse($blog->datetime)->format('Y-m-d') }}" />
-                            @error('datetime')
-                                <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>File upload</label>
-                            <input type="file" class="file-upload-default" multiple name="images[]" />
+                            <label>Image</label>
+                            <input type="file" class="file-upload-default" name="image" />
 
                             <div class="input-group col-xs-12">
                                 <input type="text" class="form-control file-upload-info" disabled
@@ -88,20 +64,41 @@
                                     </button>
                                 </span>
                             </div>
-                            @error('images.*')
+                            @error('images')
                                 <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                             @enderror
                             <div class="upload-box">
-                                @foreach ($blog->images as $image)
-                                    <div class="image-box">
-                                        <img src="{{ asset('uploads/blogs/' . $image->image) }}" width="200" alt="">
-                                        <i class="mdi mdi-close"></i>
-                                    </div>
-                                @endforeach
+                                <div class="image-box">
+                                    <img src="{{ asset('uploads/imotionals/' . $imotional->image) }}" width="200" alt="">
+                                    <i class="mdi mdi-close"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Company Icon</label>
+                            <input type="file" class="file-upload-default" name="company_icon" />
+
+                            <div class="input-group col-xs-12">
+                                <input type="text" class="form-control file-upload-info" disabled
+                                    placeholder="Upload Image" />
+
+                                <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button"> Upload
+                                    </button>
+                                </span>
+                            </div>
+                            @error('company_icon')
+                                <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
+                            @enderror
+                            <div class="upload-box">
+                                <div class="image-box">
+                                    <img src="{{ asset('uploads/imotionals/' . $imotional->company_icon) }}" width="200" alt="">
+                                    <i class="mdi mdi-close"></i>
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2"> Save </button>
-                        <a href="{{ route('blogs') }}" class="btn btn-light">Go Back</a>
+                        <a href="{{ route('imotionals') }}" class="btn btn-light">Go Back</a>
                     </form>
                 </div>
             </div>
@@ -124,12 +121,6 @@
 
     </style>
     <script src="{{ asset('manage/js/file-upload.js') }}"></script>
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace('editor');
-        CKEDITOR.replace('editor1');
-        CKEDITOR.replace('editor2');
-    </script>
     <script>
         let fileInputs = document.querySelectorAll('.file-upload-default');
         let removes = document.querySelectorAll('.image-box .mdi-close');
@@ -205,15 +196,16 @@
         });
         $('.lang a').on('click', function(e) {
             e.preventDefault();
-            let title_lang = JSON.parse($('[name="title_lang"]').val());
-            let content_lang = JSON.parse($('[name="content_lang"]').val());
-
+            let name_lang = JSON.parse($('[name="name_lang"]').val());
+            let profession_lang = JSON.parse($('[name="profession_lang"]').val());
+            let text_lang = JSON.parse($('[name="text_lang"]').val());
             $('.lang').find('a').removeClass('active');
             $(this).addClass('active');
             let lang = $(this).attr('href');
             $('#lang').val(lang);
-            $('[name="title"]').val(title_lang[lang]);
-            $('[name="content"]').val(content_lang[lang]);
+            $('[name="name"]').val(name_lang[lang]);
+            $('[name="profession"]').val(profession_lang[lang]);
+            $('[name="text"]').val(text_lang[lang]);
         })
     </script>
 @endsection

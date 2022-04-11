@@ -6,8 +6,8 @@ $counter = 0;
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Partnyorlar</h4>
-                <a href="{{ route('create-partner') }}" class="btn btn-primary">
+                <h4 class="card-title">Müştəri fikirləri</h4>
+                <a href="{{ route('create-imotional') }}" class="btn btn-primary">
                     <i class="mdi mdi-plus"></i>
                 </a>
                 </p>
@@ -16,20 +16,31 @@ $counter = 0;
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Name</th>
+                                <th>Profession</th>
                                 <th>Image</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($partners as $key=>$partner)
+                            @foreach ($imotionals as $key=>$imotional)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
+                                    <td>{{ \App\Helpers\Translate::getTranslate($imotional,app()->getLocale())->name }}</td>
+                                    <td>{{ \App\Helpers\Translate::getTranslate($imotional,app()->getLocale())->profession }}</td>
                                     <td>
-                                        <img src="{{ asset('uploads/partners/' .$partner->image) }}"
+                                        <img src="{{ asset('uploads/imotionals/' .$imotional->image) }}"
                                             style="width: 100px; height:100px" alt="">
                                     </td>
                                     <td>
-                                        <a href="{{ route('delete-partner', $partner->id) }}"
+                                        <img src="{{ asset('uploads/imotionals/' .$imotional->company_icon) }}"
+                                            style="width: 100px; height:100px" alt="">
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('edit-imotional', $imotional->id) }}" class="btn btn-success">
+                                            <i class="mdi mdi-pen"></i>
+                                        </a>
+                                        <a href="{{ route('delete-imotional', $imotional->id) }}"
                                             class="btn btn-danger delete">
                                             <i class="mdi mdi-delete"></i>
                                         </a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2022 at 04:06 PM
+-- Generation Time: Apr 11, 2022 at 03:54 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -20,6 +20,52 @@ SET time_zone = "+00:00";
 --
 -- Database: `providesolutions_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blogs`
+--
+
+CREATE TABLE `blogs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `time` date NOT NULL,
+  `view` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_images`
+--
+
+CREATE TABLE `blog_images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `blog_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_langs`
+--
+
+CREATE TABLE `blog_langs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `blog_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -88,7 +134,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2022_04_08_092644_create_settings_table', 2),
 (5, '2022_04_08_122724_create_faqs_table', 3),
 (6, '2022_04_08_122945_create_faq_langs_table', 3),
-(7, '2022_04_08_133257_create_partners_table', 4);
+(7, '2022_04_08_133257_create_partners_table', 4),
+(8, '2022_04_11_065539_create_testimotionals_table', 5),
+(9, '2022_04_11_065924_create_testimotional_langs_table', 5),
+(16, '2022_04_11_082702_create_blogs_table', 6),
+(17, '2022_04_11_082745_create_blog_langs_table', 6),
+(18, '2022_04_11_082829_create_blog_images_table', 6),
+(19, '2022_04_11_122426_create_vacancies_table', 7),
+(20, '2022_04_11_122522_create_vacancy_langs_table', 7);
 
 -- --------------------------------------------------------
 
@@ -141,6 +194,37 @@ INSERT INTO `settings` (`id`, `email`, `header_logo`, `footer_logo`, `phones`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `testimotionals`
+--
+
+CREATE TABLE `testimotionals` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company_icon` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testimotional_langs`
+--
+
+CREATE TABLE `testimotional_langs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `profession` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `text` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `testimotional_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -156,9 +240,60 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vacancies`
+--
+
+CREATE TABLE `vacancies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vacancy_langs`
+--
+
+CREATE TABLE `vacancy_langs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lang` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vacancy_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `blogs`
+--
+ALTER TABLE `blogs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blog_images`
+--
+ALTER TABLE `blog_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `blog_images_blog_id_foreign` (`blog_id`);
+
+--
+-- Indexes for table `blog_langs`
+--
+ALTER TABLE `blog_langs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `blog_langs_blog_id_foreign` (`blog_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -205,6 +340,19 @@ ALTER TABLE `settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `testimotionals`
+--
+ALTER TABLE `testimotionals`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `testimotional_langs`
+--
+ALTER TABLE `testimotional_langs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `testimotional_langs_testimotional_id_foreign` (`testimotional_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -212,8 +360,39 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `vacancies`
+--
+ALTER TABLE `vacancies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `vacancy_langs`
+--
+ALTER TABLE `vacancy_langs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `vacancy_langs_vacancy_id_foreign` (`vacancy_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `blogs`
+--
+ALTER TABLE `blogs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `blog_images`
+--
+ALTER TABLE `blog_images`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `blog_langs`
+--
+ALTER TABLE `blog_langs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -237,13 +416,13 @@ ALTER TABLE `faq_langs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `partners`
 --
 ALTER TABLE `partners`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -252,20 +431,68 @@ ALTER TABLE `settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `testimotionals`
+--
+ALTER TABLE `testimotionals`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `testimotional_langs`
+--
+ALTER TABLE `testimotional_langs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `vacancies`
+--
+ALTER TABLE `vacancies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `vacancy_langs`
+--
+ALTER TABLE `vacancy_langs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `blog_images`
+--
+ALTER TABLE `blog_images`
+  ADD CONSTRAINT `blog_images_blog_id_foreign` FOREIGN KEY (`blog_id`) REFERENCES `blogs` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `blog_langs`
+--
+ALTER TABLE `blog_langs`
+  ADD CONSTRAINT `blog_langs_blog_id_foreign` FOREIGN KEY (`blog_id`) REFERENCES `blogs` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `faq_langs`
 --
 ALTER TABLE `faq_langs`
   ADD CONSTRAINT `faq_langs_faq_id_foreign` FOREIGN KEY (`faq_id`) REFERENCES `faqs` (`id`);
+
+--
+-- Constraints for table `testimotional_langs`
+--
+ALTER TABLE `testimotional_langs`
+  ADD CONSTRAINT `testimotional_langs_testimotional_id_foreign` FOREIGN KEY (`testimotional_id`) REFERENCES `testimotionals` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `vacancy_langs`
+--
+ALTER TABLE `vacancy_langs`
+  ADD CONSTRAINT `vacancy_langs_vacancy_id_foreign` FOREIGN KEY (`vacancy_id`) REFERENCES `vacancies` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

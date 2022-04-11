@@ -7,9 +7,9 @@
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Vakansiyalar</h4>
                         <div class="lang d-flex">
-                            <a href="az" class="btn btn-success {{ app()->isLocale('az')?'active':'' }}">AZ</a>
-                            <a href="en" class="btn btn-success {{ app()->isLocale('en')?'active':'' }}">EN</a>
-                            <a href="ru" class="btn btn-success {{ app()->isLocale('ru')?'active':'' }}">RU</a>
+                            <a href="az" class="btn btn-success {{ app()->isLocale('az') ? 'active' : '' }}">AZ</a>
+                            <a href="en" class="btn btn-success {{ app()->isLocale('en') ? 'active' : '' }}">EN</a>
+                            <a href="ru" class="btn btn-success {{ app()->isLocale('ru') ? 'active' : '' }}">RU</a>
                         </div>
                     </div>
 
@@ -30,76 +30,39 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputName1">Education</label>
-                                <input type="hidden" name="education_lang"
-                                    value='{"az":"{{ $vacancy->langs->firstWhere('lang', 'az')->education }}","ru":"{{ $vacancy->langs->firstWhere('lang', 'ru')->education }}","en":"{{ $vacancy->langs->firstWhere('lang', 'en')->education }}"}'>
-                                <input type="text" class="form-control" id="exampleInputName1" name="education"
-                                    placeholder="Education"
-                                    value="{{ $vacancy->langs->firstWhere('lang', app()->getLocale())->education }}" />
-                                @error('education')
+                                <label for="exampleInputName1">Description AZ</label>
+                                <textarea name="description_az" id="editor"
+                                    rows="20">{{ $vacancy->langs->firstWhere('lang', 'az')->description }}</textarea>
+                                @error('description_az')
                                     <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputName1">Salary</label>
-                                <input type="hidden" name="salary_lang"
-                                    value='{"az":"{{ $vacancy->langs->firstWhere('lang', 'az')->salary }}","ru":"{{ $vacancy->langs->firstWhere('lang', 'ru')->salary }}","en":"{{ $vacancy->langs->firstWhere('lang', 'en')->salary }}"}'>
-                                <input type="text" class="form-control" id="exampleInputName1" name="salary"
-                                    placeholder="Salary"
-                                    value="{{ $vacancy->langs->firstWhere('lang', app()->getLocale())->salary }}" />
-                                @error('salary')
+                                <label for="exampleInputName1">Description EN</label>
+                                <textarea name="description_en" id="editor1"
+                                    rows="20">{{ $vacancy->langs->firstWhere('lang', 'en')->description }}</textarea>
+                                @error('description_en')
                                     <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputName1">Requirements AZ</label>
-                                <textarea name="requirements_az" id="editor"
-                                    rows="20">{{ $vacancy->langs->firstWhere('lang', 'az')->requirements }}</textarea>
-                                @error('requirements_az')
+                                <label for="exampleInputName1">Description RU</label>
+                                <textarea name="description_ru" id="editor2"
+                                    rows="20">{{ $vacancy->langs->firstWhere('lang', 'ru')->description }}</textarea>
+                                @error('description_ru')
                                     <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                                 @enderror
                             </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputName1">Requirements EN</label>
-                                <textarea name="requirements_en" id="editor1"
-                                    rows="20">{{ $vacancy->langs->firstWhere('lang', 'en')->requirements }}</textarea>
-                                @error('requirements_en')
-                                    <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputName1">Requirements RU</label>
-                                <textarea name="requirements_ru" id="editor2"
-                                    rows="20">{{ $vacancy->langs->firstWhere('lang', 'ru')->requirements }}</textarea>
-                                @error('requirements_ru')
-                                    <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                @enderror
-                            </div>
-
                         </div>
-
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email"
+                                value="{{ $vacancy->email }}">
+                            @error('email')
+                                <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Experience</label>
-                                    <input type="text" class="form-control" name="experience"
-                                        value="{{ $vacancy->experience }}" />
-                                    @error('experience')
-                                        <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Age</label>
-                                    <input type="text" class="form-control" name="age" value="{{ $vacancy->age }}" />
-                                    @error('age')
-                                        <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Start Date</label>
@@ -136,7 +99,6 @@
         CKEDITOR.replace('editor');
         CKEDITOR.replace('editor1');
         CKEDITOR.replace('editor2');
-        
     </script>
 
     <script>
@@ -160,15 +122,11 @@
         $('.lang a').on('click', function(e) {
             e.preventDefault();
             let title_lang = JSON.parse($('[name="title_lang"]').val());
-            let education_lang = JSON.parse($('[name="education_lang"]').val());
-            let salary_lang = JSON.parse($('[name="salary_lang"]').val());
             $('.lang').find('a').removeClass('active');
             $(this).addClass('active');
             let lang = $(this).attr('href');
             $('#lang').val(lang);
             $('[name="title"]').val(title_lang[lang]);
-            $('[name="education"]').val(education_lang[lang]);
-            $('[name="salary"]').val(salary_lang[lang]);
         })
     </script>
 @endsection

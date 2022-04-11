@@ -27,7 +27,7 @@ $counter = 0;
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>
-                                        <img src="{{ asset('uploads/blogs/' .$blog->image) }}"
+                                        <img src="{{ asset('uploads/blogs/' .$blog->images->first()->image) }}"
                                             style="width: 100px; height:100px" alt="">
                                     </td>
                                     <td>{{ $blog->langs->firstWhere('lang',app()->getLocale())->title }}</td>

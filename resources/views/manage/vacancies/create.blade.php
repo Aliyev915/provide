@@ -7,9 +7,9 @@
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Vakansiyalar</h4>
                         <div class="lang d-flex">
-                            <a href="az" class="btn btn-success {{ app()->isLocale('az')?'active':'' }}">AZ</a>
-                            <a href="en" class="btn btn-success {{ app()->isLocale('en')?'active':'' }}">EN</a>
-                            <a href="ru" class="btn btn-success {{ app()->isLocale('ru')?'active':'' }}">RU</a>
+                            <a href="az" class="btn btn-success {{ app()->isLocale('az') ? 'active' : '' }}">AZ</a>
+                            <a href="en" class="btn btn-success {{ app()->isLocale('en') ? 'active' : '' }}">EN</a>
+                            <a href="ru" class="btn btn-success {{ app()->isLocale('ru') ? 'active' : '' }}">RU</a>
                         </div>
                     </div>
 
@@ -27,55 +27,25 @@
                                     <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputName1">Education</label>
-                                <input type="hidden" name="education_lang" value='{"az":"","ru":"","en":""}'>
-                                <input type="text" class="form-control" id="exampleInputName1" name="education"
-                                    placeholder="Education" />
-                                @error('education')
-                                    <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputName1">Salary</label>
-                                <input type="hidden" name="salary_lang" value='{"az":"","ru":"","en":""}'>
-                                <input type="text" class="form-control" id="exampleInputName1" name="salary"
-                                    placeholder="Salary" />
-                                @error('salary')
-                                    <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                @enderror
-                            </div>
 
                             <div class="form-group">
-                                <label for="exampleInputName1">Requirements</label>
-                                <input type="hidden" name="requirements_lang" value='{"az":"","ru":"","en":""}'>
-                                <textarea name="requirements" id="editor" rows="20"></textarea>
-                                @error('requirements')
+                                <label for="exampleInputName1">Description</label>
+                                <input type="hidden" name="description_lang" value='{"az":"","ru":"","en":""}'>
+                                <textarea name="description" id="editor" rows="20"></textarea>
+                                @error('description')
                                     <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                                 @enderror
                             </div>
 
                         </div>
-
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email">
+                            @error('email')
+                                <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Experience</label>
-                                    <input type="text" class="form-control" name="experience" />
-                                    @error('experience')
-                                        <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Age</label>
-                                    <input type="text" class="form-control" name="age" />
-                                    @error('age')
-                                        <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Start Date</label>
@@ -140,17 +110,13 @@
         $('.lang a').on('click', function(e) {
             e.preventDefault();
             let title_lang = JSON.parse($('[name="title_lang"]').val());
-            let education_lang = JSON.parse($('[name="education_lang"]').val());
-            let salary_lang = JSON.parse($('[name="salary_lang"]').val());
-            let requirements_lang = JSON.parse($('[name="requirements_lang"]').val());
+            let description_lang = JSON.parse($('[name="description_lang"]').val());
             $('.lang').find('a').removeClass('active');
             $(this).addClass('active');
             let lang = $(this).attr('href');
             $('#lang').val(lang);
             $('[name="title"]').val(title_lang[lang]);
-            $('[name="education"]').val(education_lang[lang]);
-            $('[name="salary"]').val(salary_lang[lang]);
-            CKEDITOR.instances.editor.setData(requirements_lang[lang])
+            CKEDITOR.instances.editor.setData(description_lang[lang])
         })
     </script>
 @endsection

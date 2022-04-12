@@ -5,11 +5,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title">Xidmət</h4>
+                        <h4 class="card-title">Xidməti Redaktə Et</h4>
                         <div class="lang d-flex">
-                            <a href="az" class="btn btn-success {{ app()->isLocale('az')?'active':'' }}">AZ</a>
-                            <a href="en" class="btn btn-success {{ app()->isLocale('en')?'active':'' }}">EN</a>
-                            <a href="ru" class="btn btn-success {{ app()->isLocale('ru')?'active':'' }}">RU</a>
+                            <a href="az" class="btn btn-success {{ app()->isLocale('az') ? 'active' : '' }}">AZ</a>
+                            <a href="en" class="btn btn-success {{ app()->isLocale('en') ? 'active' : '' }}">EN</a>
+                            <a href="ru" class="btn btn-success {{ app()->isLocale('ru') ? 'active' : '' }}">RU</a>
                         </div>
                     </div>
 
@@ -30,19 +30,46 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputName1">Description</label>
-                                <input type="hidden" name="description_lang"
-                                    value='{"az":"{{ $service->langs->firstWhere('lang', 'az')->description }}","ru":"{{ $service->langs->firstWhere('lang', 'ru')->description }}","en":"{{ $service->langs->firstWhere('lang', 'en')->description }}"}'>
-                                <textarea name="description" class="form-control"
-                                    rows="5">{{ $service->langs->firstWhere('lang', app()->getLocale())->description }}</textarea>
-                                @error('description')
+                                <label for="exampleInputName1">Content</label>
+                                <input type="hidden" name="content_lang"
+                                    value='{"az":"{{ $service->langs->firstWhere('lang', 'az')->content }}","ru":"{{ $service->langs->firstWhere('lang', 'ru')->content }}","en":"{{ $service->langs->firstWhere('lang', 'en')->content }}"}'>
+                                <input type="text" class="form-control" id="exampleInputName1" name="content"
+                                    placeholder="Content"
+                                    value="{{ $service->langs->firstWhere('lang', app()->getLocale())->content }}" />
+                                @error('content')
+                                    <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName1">Description AZ</label>
+                                <textarea name="description_az" id="editor"
+                                    rows="20">{{ $service->langs->firstWhere('lang', 'az')->description }}</textarea>
+                                @error('description_az')
+                                    <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputName1">Description EN</label>
+                                <textarea name="description_en" id="editor1"
+                                    rows="20">{{ $service->langs->firstWhere('lang', 'en')->description }}</textarea>
+                                @error('description_en')
+                                    <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputName1">Description RU</label>
+                                <textarea name="description_ru" id="editor2"
+                                    rows="20">{{ $service->langs->firstWhere('lang', 'ru')->description }}</textarea>
+                                @error('description_ru')
                                     <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                         <div class="form-group">
                             <label>File upload</label>
-                            <input type="file" class="file-upload-default" name="image" />
+                            <input type="file" class="file-upload-default" multiple name="image" />
 
                             <div class="input-group col-xs-12">
                                 <input type="text" class="form-control file-upload-info" disabled
@@ -53,30 +80,7 @@
                                     </button>
                                 </span>
                             </div>
-                            @error('images')
-                                <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
-                            @enderror
-                            <div class="upload-box">
-                                <div class="image-box">
-                                    <img src="{{ asset('uploads/services/' . $service->image) }}" width="200" alt="">
-                                    <i class="mdi mdi-close"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>File upload</label>
-                            <input type="file" class="file-upload-default" name="icon" />
-
-                            <div class="input-group col-xs-12">
-                                <input type="text" class="form-control file-upload-info" disabled
-                                    placeholder="Upload Image" />
-
-                                <span class="input-group-append">
-                                    <button class="file-upload-browse btn btn-primary" type="button"> Upload
-                                    </button>
-                                </span>
-                            </div>
-                            @error('icon')
+                            @error('image')
                                 <span class="text-danger mt-2 d-inline-block">{{ $message }}</span>
                             @enderror
                             <div class="upload-box">
@@ -110,6 +114,12 @@
 
     </style>
     <script src="{{ asset('manage/js/file-upload.js') }}"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('editor');
+        CKEDITOR.replace('editor1');
+        CKEDITOR.replace('editor2');
+    </script>
     <script>
         let fileInputs = document.querySelectorAll('.file-upload-default');
         let removes = document.querySelectorAll('.image-box .mdi-close');
@@ -186,13 +196,14 @@
         $('.lang a').on('click', function(e) {
             e.preventDefault();
             let title_lang = JSON.parse($('[name="title_lang"]').val());
-            let description_lang = JSON.parse($('[name="description_lang"]').val());
+            let content_lang = JSON.parse($('[name="content_lang"]').val());
+
             $('.lang').find('a').removeClass('active');
             $(this).addClass('active');
             let lang = $(this).attr('href');
             $('#lang').val(lang);
             $('[name="title"]').val(title_lang[lang]);
-            $('[name="description"]').val(description_lang[lang]);
+            $('[name="content"]').val(content_lang[lang]);
         })
     </script>
 @endsection

@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Subscribe extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'image'
+        'email',
+        'is_read'
     ];
-
-    public function langs(){
-        return $this->hasMany(\App\Models\ServiceLang::class,'service_id');
-    }
 }

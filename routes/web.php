@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingConroller;
 use App\Http\Controllers\TestimotionalController;
 use App\Http\Controllers\VacancyController;
@@ -80,6 +81,15 @@ Route::prefix('admin')->group(function(){
         Route::get('/edit/{id}',[VacancyController::class,'edit'])->name('edit-vacancy');
         Route::post('/edit/{id}',[VacancyController::class,'update']);
         Route::get('/delete/{id}',[VacancyController::class,'delete'])->name('delete-vacancy');
+    });
+
+    Route::prefix('service')->group(function(){
+        Route::get('/',[ServiceController::class,'index'])->name('services');
+        Route::get('/create',[ServiceController::class,'create'])->name('create-service');
+        Route::post('/create',[ServiceController::class,'store']);
+        Route::get('/edit/{id}',[ServiceController::class,'edit'])->name('edit-service');
+        Route::post('/edit/{id}',[ServiceController::class,'update']);
+        Route::get('/delete/{id}',[ServiceController::class,'delete'])->name('delete-service');
     });
 
 });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2022 at 03:54 PM
+-- Generation Time: Apr 12, 2022 at 12:52 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -20,6 +20,53 @@ SET time_zone = "+00:00";
 --
 -- Database: `providesolutions_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applies`
+--
+
+CREATE TABLE `applies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `fullname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `service_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `areas`
+--
+
+CREATE TABLE `areas` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `service_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `area_langs`
+--
+
+CREATE TABLE `area_langs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lang` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `area_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -141,7 +188,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2022_04_11_082745_create_blog_langs_table', 6),
 (18, '2022_04_11_082829_create_blog_images_table', 6),
 (19, '2022_04_11_122426_create_vacancies_table', 7),
-(20, '2022_04_11_122522_create_vacancy_langs_table', 7);
+(20, '2022_04_11_122522_create_vacancy_langs_table', 7),
+(21, '2022_04_11_135227_create_services_table', 8),
+(22, '2022_04_11_135246_create_service_langs_table', 8),
+(23, '2022_04_12_075746_create_subscribes_table', 9),
+(24, '2022_04_12_085823_create_applies_table', 10),
+(25, '2022_04_12_104532_create_areas_table', 11),
+(26, '2022_04_12_104632_create_area_langs_table', 11);
 
 -- --------------------------------------------------------
 
@@ -171,6 +224,37 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_langs`
+--
+
+CREATE TABLE `service_langs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lang` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `service_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `settings`
 --
 
@@ -190,6 +274,20 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `email`, `header_logo`, `footer_logo`, `phones`, `created_at`, `updated_at`) VALUES
 (1, 'contact@providesolution.az', '469700149_provide_logo.svg', '1205141115_provide_logo.svg', '[\"+994 55 505 66 14\"]', '2022-04-08 07:36:39', '2022-04-08 08:14:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subscribes`
+--
+
+CREATE TABLE `subscribes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -276,6 +374,27 @@ CREATE TABLE `vacancy_langs` (
 --
 
 --
+-- Indexes for table `applies`
+--
+ALTER TABLE `applies`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `applies_service_id_foreign` (`service_id`);
+
+--
+-- Indexes for table `areas`
+--
+ALTER TABLE `areas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `areas_service_id_foreign` (`service_id`);
+
+--
+-- Indexes for table `area_langs`
+--
+ALTER TABLE `area_langs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `area_langs_area_id_foreign` (`area_id`);
+
+--
 -- Indexes for table `blogs`
 --
 ALTER TABLE `blogs`
@@ -334,9 +453,28 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `service_langs`
+--
+ALTER TABLE `service_langs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `service_langs_service_id_foreign` (`service_id`);
+
+--
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subscribes`
+--
+ALTER TABLE `subscribes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -375,6 +513,24 @@ ALTER TABLE `vacancy_langs`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `applies`
+--
+ALTER TABLE `applies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `areas`
+--
+ALTER TABLE `areas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `area_langs`
+--
+ALTER TABLE `area_langs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `blogs`
@@ -416,7 +572,7 @@ ALTER TABLE `faq_langs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `partners`
@@ -425,10 +581,28 @@ ALTER TABLE `partners`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `service_langs`
+--
+ALTER TABLE `service_langs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `subscribes`
+--
+ALTER TABLE `subscribes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `testimotionals`
@@ -465,6 +639,24 @@ ALTER TABLE `vacancy_langs`
 --
 
 --
+-- Constraints for table `applies`
+--
+ALTER TABLE `applies`
+  ADD CONSTRAINT `applies_service_id_foreign` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `areas`
+--
+ALTER TABLE `areas`
+  ADD CONSTRAINT `areas_service_id_foreign` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`);
+
+--
+-- Constraints for table `area_langs`
+--
+ALTER TABLE `area_langs`
+  ADD CONSTRAINT `area_langs_area_id_foreign` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `blog_images`
 --
 ALTER TABLE `blog_images`
@@ -481,6 +673,12 @@ ALTER TABLE `blog_langs`
 --
 ALTER TABLE `faq_langs`
   ADD CONSTRAINT `faq_langs_faq_id_foreign` FOREIGN KEY (`faq_id`) REFERENCES `faqs` (`id`);
+
+--
+-- Constraints for table `service_langs`
+--
+ALTER TABLE `service_langs`
+  ADD CONSTRAINT `service_langs_service_id_foreign` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `testimotional_langs`

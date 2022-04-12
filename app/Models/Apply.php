@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceLang extends Model
+class Apply extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'content',
-        'description',
+        'fullname',
+        'email',
+        'phone',
         'service_id',
-        'lang'
+        'text'
     ];
 
     public function service(){

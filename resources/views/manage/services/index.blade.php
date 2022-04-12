@@ -17,7 +17,6 @@ $counter = 0;
                             <tr>
                                 <th>#</th>
                                 <th>Image</th>
-                                <th>Icon</th>
                                 <th>Title</th>
                                 <th>Actions</th>
                             </tr>
@@ -25,16 +24,12 @@ $counter = 0;
                         <tbody>
                             @foreach ($services as $key=>$service)
                                 <tr>
-                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ ++$counter }}</td>
                                     <td>
                                         <img src="{{ asset('uploads/services/' .$service->image) }}"
                                             style="width: 100px; height:100px" alt="">
                                     </td>
-                                    <td>
-                                        <img src="{{ asset('uploads/services/' .$service->icon) }}"
-                                            style="width: 100px; height:100px" alt="">
-                                    </td>
-                                    <td>{{ $service->langs->firstWhere('lang',app()->getLocale())->title }}</td>
+                                    <td>{{ \App\Helpers\Translate::getTranslate($service,app()->getLocale())->title }}</td>
                                     <td>
                                         <a href="{{ route('edit-service', $service->id) }}" class="btn btn-success">
                                             <i class="mdi mdi-pen"></i>

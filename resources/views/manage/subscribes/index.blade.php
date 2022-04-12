@@ -6,31 +6,27 @@ $counter = 0;
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Müraciətlər</h4>
+                <h4 class="card-title">Abunələr</h4>
                 </p>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Fullname</th>
                                 <th>Email</th>
-                                <th>Phone</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($applies as $apply)
+                            @foreach ($subscribes as $subscribe)
                                 <tr>
                                     <td>{{ ++$counter }}</td>
-                                    <td>{{ $apply->fullname }}</td>
-                                    <td>{{ $apply->email }}</td>
-                                    <td>{{ $apply->phone }}</td>
+                                    <td>{{ $subscribe->email }}</td>
                                     <td>
-                                        <a href="{{ route('read', $apply->id) }}" class="btn btn-warning">
-                                            <i class="mdi {{ $apply->is_read ? 'mdi-eye-off' : 'mdi-eye' }}"></i>
+                                        <a href="{{ route('read', $subscribe->id) }}" class="btn btn-warning">
+                                            <i class="mdi {{ $subscribe->is_read ? 'mdi-eye-off' : 'mdi-eye' }}"></i>
                                         </a>
-                                        <a href="{{ route('delete-apply', $apply->id) }}"
+                                        <a href="{{ route('delete-subscribe', $subscribe->id) }}"
                                             class="btn btn-danger delete">
                                             <i class="mdi mdi-delete"></i>
                                         </a>

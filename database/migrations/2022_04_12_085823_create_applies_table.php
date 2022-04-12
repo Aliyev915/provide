@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiceLangsTable extends Migration
+class CreateAppliesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateServiceLangsTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_langs', function (Blueprint $table) {
+        Schema::create('applies', function (Blueprint $table) {
             $table->id();
-            $table->string('title',150)->nullable();
-            $table->string('slug',200)->nullable();
-            $table->string('content',250)->nullable();
-            $table->longText('description')->nullable();
-            $table->string('lang',3);
+            $table->string('fullname',50);
+            $table->string('phone',20);
+            $table->string('email',100);
+            $table->string('message',2000)->nullable();
+            $table->boolean('is_read')->default(0);
             $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ class CreateServiceLangsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_langs');
+        Schema::dropIfExists('applies');
     }
 }

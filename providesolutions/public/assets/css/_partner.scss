@@ -1,0 +1,26 @@
+#partner{
+    // .swiper{
+    //     padding: 0 180px;
+    // }
+    img{
+        width: 100%;
+        filter: grayscale(100%);
+        transition: $transition;
+    }
+
+    .partner-img{
+        background: transparent;
+        border-radius: 8px;
+        padding: 40px;
+        transition: $transition;
+        &:hover{
+            background: rgba(4,181,171, 0.1);
+            img{
+                filter: grayscale(0);
+            }
+        }
+    }
+
+
+
+}

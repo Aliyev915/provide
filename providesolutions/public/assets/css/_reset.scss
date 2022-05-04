@@ -1,0 +1,112 @@
+@import url('http://fonts.cdnfonts.com/css/euclid-circular-b');
+$font1:'Euclid Circular B', sans-serif;
+
+@import url('http://fonts.cdnfonts.com/css/euclid-circular-a');
+$font2:'Euclid Circular A', sans-serif;
+
+
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+a, button, i{
+    transition: $transition;
+}
+a, a:hover{
+    text-decoration: none !important;
+}
+input:focus,
+textarea:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+button{
+    border: none;
+}
+button:focus{
+    outline: none;
+}
+section{
+    padding: 60px 0;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.title-div{
+    position: relative;
+    span{
+        color: #243D80;
+        font-size: 14px;
+        font-weight: 700;
+        position: absolute;
+        top: 7px;
+        left: 0;
+    }
+}
+.title{
+   font-family: $font1;
+   font-size: 43px;
+   font-weight: 600;
+   width: 320px;
+   margin-left: 25px;
+   margin-bottom: 55px;
+}
+h1, h2, h3, h4, h5{
+    font-family: $font1;
+}
+p, span, a, button, li{
+    font-family: $font2;
+}
+
+.card-link{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 1;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+ ::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 0px;
+    background: transparent;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background: #F0F1FD;
+    border-radius: 8px;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #F0F1FD;
+}
+
+.loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    border: 0;
+    background: white;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.loader img{
+    width: 250px;
+}

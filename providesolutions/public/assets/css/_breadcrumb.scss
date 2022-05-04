@@ -1,0 +1,21 @@
+#breadcrumb{
+    
+        list-style: none;
+        display: flex;
+        margin-bottom: 85px;
+    i{
+        font-size: 6px;
+        margin: 0 10px;
+        transform: translateY(-2px);
+    }
+   
+    li,a{
+        font-size: 14px;
+    }
+    a{
+        color: #999999;
+        &:hover{
+            color: $blue;
+        }
+    }
+}

@@ -1,0 +1,101 @@
+#faq{
+    padding-top: 30px;
+    #breadcrumb{
+        margin-bottom: 24px;
+    }
+    .fa-minus{
+        display: none;
+    }
+    .right-block{
+        justify-content: center;
+    }
+    .right-block-box{
+        width: 400px;
+        margin: auto;
+        right: 0;
+        left:50%;
+        transform: translateX(-50%);
+    }
+    .right-block div:nth-child(2) {
+        bottom: -30px;
+    }
+    .row{
+        justify-content: space-between;
+    }
+    #accordion {
+        .card {
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            position: relative;
+            border-bottom: 1px solid #F0F1FD;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            margin-left: 80px;
+            &:not(:last-child) {
+                margin-bottom: 30px;
+            }
+           
+            .card-body {
+                border: none;
+                padding-top: 5px;
+                p {
+                    
+                    font-size: 17px;
+                    margin-bottom: 0;
+                    margin-left: 95px;
+                    color: #666666;
+                }
+            }
+            .card-header {
+                background: white;
+                padding-top: 20px;
+                padding-bottom: 0px;
+                border: none;
+                a {
+                    font-size: 18px;
+                    font-weight: 500;
+                    
+                   
+                }
+            }
+        }
+       
+    }
+    .faq-link{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        p{
+            font-weight: 600;
+            font-size: 28px;
+            color: #222222;
+            margin-bottom: 0;
+            width: calc(100% - 92px);
+        }
+        .faq-div-1{
+            width: 72px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 28, 219, 0.06);
+            border-radius: 50%;
+        }
+        .faq-div-2{
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: $blue;
+            border-radius: 50%;
+           
+        }
+        i{
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+        }
+    }
+}

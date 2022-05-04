@@ -1,0 +1,32 @@
+.button{
+    background: $blue;
+    border-radius: 25px;
+    color: white;
+    border: 1px solid $blue;
+    padding: 12px 27px;
+    font-size: 17px;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 20px;
+    &:hover{
+        color: $blue;
+        background: white;
+    }
+}
+
+
+.button-grey{
+    background: #E9ECF2;
+        border-radius: 25px;
+        color: $blue;
+        font-size: 15px;
+        font-family: $font2;
+        font-weight: 500;
+        padding: 10px 22px;
+        transition: $transition;
+        cursor: pointer;
+        &:hover{
+            background: $blue;
+            color: white;
+        }
+}

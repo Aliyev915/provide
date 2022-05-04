@@ -1,0 +1,58 @@
+#subscribe{
+    .row{
+        justify-content: center;
+    }
+    h3, p{
+        text-align: center;
+    }
+    h3{
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+    p{
+        color: #1A1A1A;
+        font-size: 17px;
+        margin: auto;
+        width: 552px;
+        font-weight: 500;
+    }
+    form{
+        position: relative;
+        width: 100%;
+        margin-top: 30px;
+    }
+    input{
+        background: #FFFFFF;
+        border: 1px solid rgba(36, 61, 128, 0.25);
+        border-radius: 25px;
+        width: 90%;
+        height: 48px;
+        padding-left: 20px;
+        margin: auto;
+        display: block;
+        font-size: 17px;
+        &::placeholder{
+            color: rgba(21, 50, 64, 0.25);
+            font-weight: 500;
+
+        }
+    }
+    button{
+        background: $blue;
+        border-radius: 25px;
+        border: 1px solid $blue;
+        color: white;
+        position: absolute;
+        height: 48px;
+        width: 120px;
+        font-size: 17px;
+        font-weight: 500;
+        right:33px;
+        top:0;
+        &:hover{
+            color: $blue;
+            background: white;
+        }
+    }
+}

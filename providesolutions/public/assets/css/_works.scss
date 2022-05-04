@@ -1,0 +1,84 @@
+#works{
+    .title{
+        width: 420px;
+    }
+    .card{
+        border: none;
+        border-radius: 12px;
+        padding: 20px;
+        min-height: 320px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 4px rgba(0,0,0,0.14);
+        transition: $transition;
+        &:hover{
+            transform: translateY(-15px);
+            .works-link span{
+                opacity: 1;
+            }
+            .works-link .fa-angle-right{
+                opacity: 1;
+            }
+        }
+    }
+    .card-green{
+        background: radial-gradient(89.75% 89.75% at 12.69% 10.25%, #18D90A 0%, #0ECC00 100%);
+    }
+    .card-blue{
+        background: radial-gradient(89.75% 89.75% at 12.69% 10.25%, #132EEA 0%, #001CDB 100%);
+    }
+    .card-green1{
+        background: radial-gradient(89.75% 89.75% at 12.69% 10.25%, #03B5AA 0%, #4CE4DB 0.01%, #03C2B7 100%);
+    }
+    .card-purple{
+        background: radial-gradient(89.75% 89.75% at 12.69% 10.25%, #C140D6 0.01%, #AC31BF 100%);
+    }
+    .work-title{
+        font-size: 26px;
+        color: white;
+        font-weight: 500;
+        font-family: $font1;
+        margin-bottom: 0;
+        position: absolute;
+        bottom: 20px;
+    }
+    .works-link{
+        text-align: right;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        span{
+            font-weight: 300;
+            font-size: 16px;
+            opacity: 0;
+            transition: $transition;
+        }
+        .fa-angle-right{
+            font-weight: 200;
+            font-size: 19px;
+            border: 1px solid white;
+            padding: 0 6px;
+            border-radius: 8px;
+            margin-left: 4px;
+            opacity: 0.5;
+            transition: $transition;
+        }
+    }
+    img{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-66%);
+        width: 100%;
+    }
+    .works-link-1{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        z-index: 1;
+    }
+}
